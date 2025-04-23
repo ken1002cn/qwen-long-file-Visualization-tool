@@ -13,6 +13,7 @@ public class SidePanel extends JPanel {
     public static SidePanel getInstance() {
         if (instance == null) {
             instance = new SidePanel();
+            instance.setPreferredSize(new Dimension(300, 300));
             instance.setLayout(new BorderLayout());
             instance.add(DetailTextArea.getInstance(), BorderLayout.NORTH);
             instance.add(ToolBarPanel.getInstance(), BorderLayout.SOUTH);

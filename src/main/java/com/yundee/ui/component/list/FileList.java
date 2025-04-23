@@ -19,6 +19,7 @@ public class FileList extends JList<FileItem> {
                 if(!e.getValueIsAdjusting()){ //如果用户还在 拖动或没松开鼠标，不触发事件
                     FileItem selected = instance.getSelectedValue();
                     if(selected != null){
+                        log.info("当前选中{}",selected.getFilename());
                         DetailTextArea.getInstance().setText(selected);
                     }
                 }
