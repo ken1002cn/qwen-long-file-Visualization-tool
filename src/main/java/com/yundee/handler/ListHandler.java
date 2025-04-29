@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ListHandler {
 
-    public static List<FileItem> list(){
+    public static ListMessage listData(){
         String json = HttpUtils.list();
-        ListMessage listMessage = GsonUtils.fromJson(json, ListMessage.class);
-        return listMessage.getData();
+        return GsonUtils.fromJson(json, ListMessage.class);
     }
+
 }

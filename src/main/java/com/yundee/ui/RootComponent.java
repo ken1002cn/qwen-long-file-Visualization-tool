@@ -18,9 +18,13 @@ public class RootComponent {
         frame.setLocationRelativeTo(null); //弹出位置屏幕中心
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //当点击关闭按钮时，退出程序
         frame.setSize(600,600);
+
         panel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,FileListPanel.getInstance(),SidePanel.getInstance());
-        panel.setDividerLocation(300); // 默认左边宽度
-        panel.setResizeWeight(0.5);    // 拖动权重
+        panel.setContinuousLayout(true);
+        panel.setOneTouchExpandable(true);
+        panel.setDividerLocation(150);
+
+        frame.setResizable(false);
         frame.setContentPane(panel);
         frame.setVisible(true);
     }

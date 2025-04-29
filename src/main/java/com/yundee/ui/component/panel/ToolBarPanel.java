@@ -2,6 +2,8 @@ package com.yundee.ui.component.panel;
 
 import com.yundee.domain.FileItem;
 import com.yundee.handler.DeleteHandler;
+import com.yundee.ui.component.label.FileCountLabel;
+import com.yundee.ui.component.label.HasMoreLabel;
 import com.yundee.ui.component.list.FileList;
 
 import javax.swing.*;
@@ -12,10 +14,13 @@ import java.awt.event.ActionListener;
 public class ToolBarPanel extends JPanel {
     private static ToolBarPanel instance;
     private ToolBarPanel() {
-        super(new FlowLayout());
+        super(new GridLayout(2,3));
         this.buildFlashDataButton();
         this.buildDeleteAllButton();
         this.buildDeleteOneButton();
+        this.add(FileCountLabel.getInstance());
+        this.add(HasMoreLabel.getInstance());
+        this.buildKeySettingButton();
     }
 
     public static ToolBarPanel getInstance() {
@@ -77,6 +82,10 @@ public class ToolBarPanel extends JPanel {
                 );
             }
         });
+        this.add(button);
+    }
+    private void buildKeySettingButton(){
+        JButton button = new JButton("修改API-KEY");
         this.add(button);
     }
 }

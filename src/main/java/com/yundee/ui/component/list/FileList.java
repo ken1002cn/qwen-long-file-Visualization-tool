@@ -1,7 +1,10 @@
 package com.yundee.ui.component.list;
 
 import com.yundee.domain.FileItem;
+import com.yundee.domain.ListMessage;
 import com.yundee.handler.ListHandler;
+import com.yundee.ui.component.label.FileCountLabel;
+import com.yundee.ui.component.label.HasMoreLabel;
 import com.yundee.ui.component.textarea.DetailTextArea;
 import lombok.extern.slf4j.Slf4j;
 import javax.swing.*;
@@ -31,11 +34,13 @@ public class FileList extends JList<FileItem> {
     private FileList() {}
 
     public void flashData(){
-        List<FileItem> fileItemList = ListHandler.list();
+        ListMessage listMessage = ListHandler.listData();
         DefaultListModel<FileItem> model = new DefaultListModel<>();
-        for(FileItem item : fileItemList){
+        for(FileItem item : listMessage.getData()){
             model.addElement(item);
         }
         instance.setModel(model);
+        FileCountLabel.getInstance().setData(listMessage.getData().size());
+        HasMoreLabel.getInstance().setData(listMessage.getHas_more());
     }
 }
