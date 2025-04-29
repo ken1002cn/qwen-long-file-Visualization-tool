@@ -1,7 +1,10 @@
 package com.yundee.ui.component.panel;
 
 import com.yundee.domain.FileItem;
+import com.yundee.domain.UserConfig;
+import com.yundee.handler.ConfigHandler;
 import com.yundee.handler.DeleteHandler;
+import com.yundee.ui.RootComponent;
 import com.yundee.ui.component.label.FileCountLabel;
 import com.yundee.ui.component.label.HasMoreLabel;
 import com.yundee.ui.component.list.FileList;
@@ -86,6 +89,17 @@ public class ToolBarPanel extends JPanel {
     }
     private void buildKeySettingButton(){
         JButton button = new JButton("修改API-KEY");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserConfig userConfig = ConfigHandler.loadConfig();
+                String apiKey = userConfig.getApiKey();
+                //展示对话框
+                String inputContent = JOptionPane.showInputDialog(RootComponent.frame,"当前api-key:"+apiKey+" 请输入新的api-key");
+                userConfig.setApiKey(inputContent);
+                ConfigHandler.saveConfig(userConfig);
+            }
+        });
         this.add(button);
     }
 }

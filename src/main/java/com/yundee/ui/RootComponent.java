@@ -6,9 +6,8 @@ import com.yundee.ui.component.panel.SidePanel;
 import javax.swing.*;
 
 public class RootComponent {
-
-    private static JFrame frame;
-    private static JSplitPane panel;
+    public static JFrame frame;
+    public static JSplitPane panel;
     public static void run(){
         if (frame !=null || panel !=null ){
             throw new RuntimeException("界面已被创建");

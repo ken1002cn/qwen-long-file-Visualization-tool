@@ -27,7 +27,7 @@ public class FileList extends JList<FileItem> {
                     }
                 }
             });
-            instance.flashData();
+//            instance.flashData();
         }
         return instance;
     }
