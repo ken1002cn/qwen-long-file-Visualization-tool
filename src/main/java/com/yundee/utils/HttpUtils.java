@@ -1,20 +1,33 @@
 package com.yundee.utils;
 
-import com.alibaba.dashscope.utils.Constants;
+import com.yundee.domain.UserConfig;
+import com.yundee.handler.ConfigHandler;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-
 import java.io.IOException;
+
 @Slf4j
 public class HttpUtils {
-    private static final String key = "sk-ee9c7354c43347a9a291169769770110";
+
+    private static String key = "";
+
+    private static void checkOrFetchApiKey(){
+        if (key==null | key.isEmpty()){
+            UserConfig userConfig = ConfigHandler.loadConfig();
+            key = userConfig.getApiKey();
+            if (key == null || key.isEmpty()){
+                throw new RuntimeException("api-key没有配置!");
+            }
+        }
+    }
     /**
      * 查询已上传文件列表
      * @return 响应体
      */
     public static String list(){
+        checkOrFetchApiKey();
         OkHttpClient client = new OkHttpClient();
         // 创建 GET 请求
         Request request = new Request.Builder()
@@ -38,6 +51,7 @@ public class HttpUtils {
      * @throws IOException
      */
     public static String delete(String fid){
+        checkOrFetchApiKey();
         OkHttpClient client = new OkHttpClient();
         String url = "https://dashscope.aliyuncs.com/compatible-mode/v1/files/" + fid;
         Request request = new Request.Builder()

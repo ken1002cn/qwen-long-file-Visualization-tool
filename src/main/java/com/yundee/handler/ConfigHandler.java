@@ -16,7 +16,7 @@ public class ConfigHandler {
     public static UserConfig loadConfig() {
         try {
             if (!CONFIG_FILE.exists()) {
-                // 第一次运行，从 resources 中复制出来
+                // 第一次运行，从 resources 中复制出来 注意这里用自己的类加载器去加载只是为了防止拿不到 用其他类加载器也能找到
                 InputStream in = ConfigHandler.class.getClassLoader().getResourceAsStream(CONFIG_FILENAME);
                 if (in == null) throw new FileNotFoundException("未找到默认配置文件资源！");
                 Files.copy(in, CONFIG_FILE.toPath(), StandardCopyOption.REPLACE_EXISTING);
