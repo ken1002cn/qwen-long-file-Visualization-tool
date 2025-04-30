@@ -98,6 +98,12 @@ public class ToolBarPanel extends JPanel {
                 String inputContent = JOptionPane.showInputDialog(RootComponent.frame,"当前api-key:"+apiKey+" 请输入新的api-key");
                 userConfig.setApiKey(inputContent);
                 ConfigHandler.saveConfig(userConfig);
+                JOptionPane.showMessageDialog(
+                        null,
+                        "修改成功！请刷新数据",
+                        "操作提示",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
             }
         });
         this.add(button);

@@ -3,6 +3,9 @@ package com.yundee.ui.component.textarea;
 import com.yundee.domain.FileItem;
 
 import javax.swing.*;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 public class DetailTextArea extends JTextArea {
 
@@ -23,11 +26,15 @@ public class DetailTextArea extends JTextArea {
     }
 
     public void setText(FileItem fileItem) {
+        long timestamp = Long.parseLong(fileItem.getCreated_at());
+        Instant instant = Instant.ofEpochSecond(timestamp);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault());
+        String formatted = formatter.format(instant);
         String text = String.format("文件id: %s\n文件类型: %s\n文件大小: %s\n创建时间: %s\n文件名称: %s\n文件用途: %s",
                 fileItem.getId(),
                 fileItem.getObject(),
                 fileItem.getBytes(),
-                fileItem.getCreated_at(),
+                formatted,
                 fileItem.getFilename(),
                 fileItem.getPurpose());
         super.setText(text);

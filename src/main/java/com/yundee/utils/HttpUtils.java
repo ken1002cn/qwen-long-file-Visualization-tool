@@ -11,28 +11,16 @@ import java.io.IOException;
 @Slf4j
 public class HttpUtils {
 
-    private static String key = "";
-
-    private static void checkOrFetchApiKey(){
-        if (key==null | key.isEmpty()){
-            UserConfig userConfig = ConfigHandler.loadConfig();
-            key = userConfig.getApiKey();
-            if (key == null || key.isEmpty()){
-                throw new RuntimeException("api-key没有配置!");
-            }
-        }
-    }
     /**
      * 查询已上传文件列表
      * @return 响应体
      */
     public static String list(){
-        checkOrFetchApiKey();
         OkHttpClient client = new OkHttpClient();
         // 创建 GET 请求
         Request request = new Request.Builder()
                 .url("https://dashscope.aliyuncs.com/compatible-mode/v1/files")
-                .header("Authorization","Bearer " + key)// URL 替换为实际的 API 地址
+                .header("Authorization","Bearer " + ConfigHandler.loadConfig().getApiKey())// URL 替换为实际的 API 地址
                 .build();
         // 发送请求并获取响应
         try {
@@ -51,12 +39,11 @@ public class HttpUtils {
      * @throws IOException
      */
     public static String delete(String fid){
-        checkOrFetchApiKey();
         OkHttpClient client = new OkHttpClient();
         String url = "https://dashscope.aliyuncs.com/compatible-mode/v1/files/" + fid;
         Request request = new Request.Builder()
                 .url(url)
-                .header("Authorization","Bearer "+ key)
+                .header("Authorization","Bearer "+ ConfigHandler.loadConfig().getApiKey())
                 .delete()
                 .build();
         // 发送请求并获取响应
